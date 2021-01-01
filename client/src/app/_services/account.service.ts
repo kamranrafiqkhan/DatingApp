@@ -46,4 +46,13 @@ currentUser$ = this.currentUserSource.asObservable();
     localStorage.removeItem('user')
     this.currentUserSource.next(null);
   }
+
+  tester(){
+    return this.http.get(this.baseUrl + "buggy/not-found").pipe(
+      map(resp => 
+      {
+          console.log(resp);
+      })
+    );
+  }
 }
