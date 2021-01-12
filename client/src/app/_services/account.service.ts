@@ -19,14 +19,13 @@ currentUser$ = this.currentUserSource.asObservable();
     return this.http.post(this.baseUrl + "account/login", model).pipe(
       map((response: User) => 
       {
-        const user = response;
-        localStorage.setItem('user', JSON.stringify(user));
-        this.currentUserSource.next(user);
+        this.setcurrentUser(response);
       })
     );
   }
 
   setcurrentUser(user: User){
+    localStorage.setItem('user', JSON.stringify(user));
       this.currentUserSource.next(user);
   }
 
@@ -35,8 +34,7 @@ currentUser$ = this.currentUserSource.asObservable();
         map((user: User) => {
           if(user)
           {
-            localStorage.setItem('user', JSON.stringify(user));
-          this.currentUserSource.next(user);
+            this.setcurrentUser(user);
           }
           return user;
         })
