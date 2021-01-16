@@ -66,8 +66,14 @@ user: User;
     }
 
     this.uploader.onSuccessItem = (item, response, status, headera) => {
-      const photo = JSON.parse(response);
+      const photo: Photo = JSON.parse(response);
       this.member.photos.push(photo);
+      if(photo.isMain)
+      {
+        this.user.photoUrl = photo.url;
+        this.member.photoUrl = photo.url;
+        this.accountService.setcurrentUser(this.user);
+      }
     }
   }
 
